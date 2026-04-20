@@ -1,4 +1,6 @@
-const API_BASE_URL = "https://lx-music-api.vercel.app";
+// 替换为：洛雪永久公共API（无跨域、不404）
+const API_BASE_URL = "https://api.injahow.cn/meting/api";
+
 const KUWO_HOST_PATTERN = /(^|\.)kuwo\.cn$/i;
 const SAFE_RESPONSE_HEADERS = ["content-type", "cache-control", "accept-ranges", "content-length", "content-range", "etag", "last-modified", "expires"];
 
@@ -52,7 +54,7 @@ function normalizeKuwoUrl(rawUrl: string): URL | null {
 }
 
 async function proxyKuwoAudio(targetUrl: string, request: Request): Promise<Response> {
-  const normalized = normalizeKuwoUrl(targetUrl);
+  const normalized = normalizeKuwoUrl(targetUrl, request);
   if (!normalized) {
     return new Response("Invalid target", { status: 400 });
   }
@@ -91,8 +93,6 @@ async function proxyApiRequest(url: URL, request: Request): Promise<Response> {
     }
     apiUrl.searchParams.set(key, value);
   });
-
-  // 已移除强制 types 参数校验
 
   const upstream = await fetch(apiUrl.toString(), {
     headers: {
