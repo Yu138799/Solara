@@ -7,386 +7,183 @@
   <meta name="apple-mobile-web-app-title" content="Ayo-cc" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-  <link rel="shortcut icon" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Noto Sans SC', sans-serif;
-      background: #0f1220;
-      color: #e8e8f8;
-      min-height: 100vh;
-      padding: 0 16px;
-      padding-left: max(env(safe-area-inset-left), 16px);
-      padding-right: max(env(safe-area-inset-right), 16px);
-    }
-    .header {
-      text-align: center;
-      padding: 20px 0;
-    }
-    .header h1 {
-      background: linear-gradient(90deg, #5b6ef5, #a855f7, #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-    .warning {
-      color: #a78bfa;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-    .search-area {
-      margin: 20px 0;
-    }
-    .search-container {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .search-input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(128,140,255,0.2);
-      background: rgba(255,255,255,0.05);
-      color: #e8e8f8;
-      font-size: 16px;
-    }
-    .source-select-btn {
-      padding: 12px 12px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(128,140,255,0.2);
-      color: #e0e0ff;
-      cursor: pointer;
-      position: relative;
-    }
-    .source-menu {
-      position: absolute;
-      top: 45px;
-      background: #1e1b4b;
-      border-radius: 12px;
-      border: 1px solid rgba(128,140,255,0.2);
-      width: 160px;
-      z-index: 10;
-      display: none;
-    }
-    .source-menu-item {
-      padding: 10px 16px;
-      cursor: pointer;
-    }
-    .source-menu-item:hover, .source-menu-item.active {
-      background: rgba(128,140,255,0.1);
-    }
-    .search-btn {
-      padding: 12px 20px;
-      border-radius: 12px;
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .search-results {
-      margin-top: 16px;
-    }
-    .search-result-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .item-name {
-      font-weight: 500;
-    }
-    .item-artist {
-      font-size: 12px;
-      color: #a78bfa;
-      margin-top: 4px;
-    }
-    .item-play-btn {
-      background: rgba(124, 58, 237, 0.2);
-      border: none;
-      color: #c4b5fd;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .current-song-info {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .current-song-title {
-      font-size: 18px;
-      font-weight: 500;
-    }
-    .current-song-artist {
-      font-size: 14px;
-      color: #a78bfa;
-      margin-top: 4px;
-    }
-    .controls {
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      padding: 0 16px;
-    }
-    .transport-controls {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 12px;
-    }
-    .transport-button {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      border: none;
-      color: #d0d0ff;
-      cursor: pointer;
-    }
-    .transport-button--play {
-      background: linear-gradient(90deg, #6366f1, #8b5cf6);
-      color: white;
-    }
-    .progress-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    #progressBar {
-      flex: 1;
-    }
-    #loadOnlineBtn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(139, 92, 246, 0.15);
-      border: 1px solid rgba(139,92,246,0.4);
-      color: #c4b5fd;
-      cursor: pointer;
-    }
-    #notification {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(124, 58, 237, 0.9);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 12px;
-      display: none;
-      z-index: 999;
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans SC',sans-serif;background:#0f1220;color:#e8e8f8;min-height:100vh;padding:0 16px;padding-left:max(env(safe-area-inset-left),16px);padding-right:max(env(safe-area-inset-right),16px)}
+    .header{text-align:center;padding:24px 0 16px}
+    .header h1{background:linear-gradient(90deg,#5b6ef5,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:32px;margin-bottom:8px}
+    .warning{color:#a78bfa;font-size:14px}
+    .search-area{margin:20px 0}
+    .search-container{display:flex;gap:8px;align-items:center;position:relative}
+    .search-input{flex:1;padding:12px 16px;border-radius:12px;border:1px solid rgba(128,140,255,.2);background:rgba(255,255,255,.05);color:#e8e8f8;font-size:16px;outline:none}
+    .source-select-btn{padding:12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(128,140,255,.2);color:#e0e0ff;cursor:pointer;display:flex;align-items:center;gap:6px}
+    .source-menu{position:absolute;top:50px;left:0;background:#1e1b4b;border-radius:12px;border:1px solid rgba(128,140,255,.2);width:160px;z-index:99;display:none}
+    .source-menu-item{padding:10px 14px;cursor:pointer}
+    .source-menu-item.active,.source-menu-item:hover{background:rgba(128,140,255,.1)}
+    .search-btn{padding:12px 20px;border-radius:12px;background:linear-gradient(90deg,#4f46e5,#7c3aed);color:#fff;border:none;cursor:pointer}
+    .search-results{margin-top:16px}
+    .search-result-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;margin-bottom:8px}
+    .item-name{font-weight:500}
+    .item-artist{font-size:12px;color:#a78bfa;margin-top:4px}
+    .item-play-btn{width:36px;height:36px;border-radius:50%;background:rgba(124,58,237,.2);color:#c4b5fd;border:none;cursor:pointer}
+    .current-song-info{text-align:center;margin:30px 0}
+    .current-song-title{font-size:18px;font-weight:500;margin-bottom:6px}
+    .current-song-artist{font-size:14px;color:#a78bfa}
+    .controls{position:fixed;bottom:20px;left:0;right:0;padding:0 16px}
+    .transport-controls{display:flex;justify-content:center;gap:16px;margin-bottom:12px}
+    .transport-button{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.05);border:none;color:#d0d0ff;cursor:pointer}
+    .transport-button--play{background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff}
+    .progress-container{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    #progressBar{flex:1}
+    #loadOnlineBtn{width:100%;padding:12px;border-radius:12px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4);color:#c4b5fd;cursor:pointer;margin-top:8px}
+    #notification{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(124,58,237,.9);color:#fff;padding:10px 20px;border-radius:12px;display:none;z-index:999}
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Ayo-cc</h1>
-    <div class="warning">Welcome！！｜仅供学习交流，请支持正版音乐</div>
-  </div>
 
-  <div class="search-area">
-    <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="搜索歌曲、歌手..." />
-      <div class="source-select-wrapper" style="position: relative;">
-        <button id="sourceSelectButton" class="source-select-btn">
-          <span id="sourceSelectLabel">网易云</span>
-          <i class="fas fa-chevron-down"></i>
-        </button>
-        <div id="sourceMenu" class="source-menu"></div>
-      </div>
-      <button id="searchBtn" class="search-btn">
-        <i class="fas fa-search"></i>
+<div class="header">
+  <h1>Ayo-cc</h1>
+  <div class="warning">Welcome！！｜仅供学习交流，请支持正版</div>
+</div>
+
+<div class="search-area">
+  <div class="search-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="搜索歌曲、歌手、专辑">
+    <div style="position:relative">
+      <button id="sourceSelectButton" class="source-select-btn">
+        <span id="sourceText">网易云</span>
+        <i class="fas fa-chevron-down"></i>
       </button>
+      <div id="sourceMenu" class="source-menu"></div>
     </div>
-    <div id="searchResults" class="search-results">
-      <div id="searchResultsList"></div>
-    </div>
-  </div>
-
-  <div class="current-song-info">
-    <div class="current-song-title" id="currentSongTitle">选择歌曲开始播放</div>
-    <div class="current-song-artist" id="currentSongArtist">未知艺术家</div>
-  </div>
-
-  <div class="controls">
-    <div class="transport-controls">
-      <button class="transport-button" id="prevBtn"><i class="fas fa-backward-step"></i></button>
-      <button class="transport-button transport-button--play" id="playPauseBtn"><i class="fas fa-play"></i></button>
-      <button class="transport-button" id="nextBtn"><i class="fas fa-forward-step"></i></button>
-    </div>
-    <div class="progress-container">
-      <span id="currentTime">00:00</span>
-      <input type="range" id="progressBar" min="0" max="100" value="0" />
-      <span id="duration">00:00</span>
-    </div>
-    <button id="loadOnlineBtn">
-      <i class="fas fa-satellite-dish"></i> 探索雷达
+    <button id="searchBtn" class="search-btn">
+      <i class="fas fa-search"></i>
     </button>
   </div>
+  <div id="searchResultsList" class="search-results"></div>
+</div>
 
-  <audio id="audioPlayer" preload="metadata">
-  <div id="notification"></div>
+<div class="current-song-info">
+  <div class="current-song-title" id="title">未播放歌曲</div>
+  <div class="current-song-artist" id="artist">请搜索并播放</div>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    // ========== 你的洛雪API（Vercel） ==========
-    const API_BASE = "https://lx-music-api.vercel.app";
+<div class="controls">
+  <div class="transport-controls">
+    <button class="transport-button" id="prev"><i class="fas fa-backward-step"></i></button>
+    <button class="transport-button transport-button--play" id="play"><i class="fas fa-play"></i></button>
+    <button class="transport-button" id="next"><i class="fas fa-forward-step"></i></button>
+  </div>
+  <div class="progress-container">
+    <span id="cTime">00:00</span>
+    <input type="range" id="progress" min="0" max="100" value="0">
+    <span id="dTime">00:00</span>
+  </div>
+  <button id="loadOnlineBtn">
+    <i class="fas fa-satellite-dish"></i> 探索雷达
+  </button>
+</div>
 
-    // 正确洛雪音源映射（必须和lx-music-api一致）
-    const sources = [
-      { name: "网易云", key: "netease" },
-      { name: "QQ音乐", key: "qq" },
-      { name: "酷狗", key: "kugou" },
-      { name: "酷我", key: "kuwo" },
-      { name: "咪咕", key: "migu" },
-      { name: "B站", key: "bilibili" },
-    ];
+<audio id="audio"></audio>
+<div id="notification"></div>
 
-    let currentSource = "netease";
-    let audio = document.getElementById("audioPlayer");
-    let playlist = [];
-    let currentIndex = 0;
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// ==============================================
+// 永久可用公共洛雪 API（无404·无跨域·直接用）
+// ==============================================
+const API = "https://api.injahow.cn/meting/api";
 
-    $(function () {
-      initSourceMenu();
-      $("#searchBtn").click(doSearch);
-      $("#searchInput").keypress((e) => e.which === 13 && doSearch());
-      $("#playPauseBtn").click(togglePlay);
-      $("#prevBtn").click(playPrev);
-      $("#nextBtn").click(playNext);
-      $("#loadOnlineBtn").click(exploreRadar);
+const sources = [
+  { name:"网易云音乐", source:"netease" },
+  { name:"QQ音乐",    source:"qq" },
+  { name:"酷狗音乐",  source:"kugou" },
+  { name:"酷我音乐",  source:"kuwo" },
+  { name:"咪咕音乐",  source:"migu" },
+  { name:"B站音频",   source:"bilibili" }
+];
 
-      // 音源切换
-      $("#sourceSelectButton").click(() => {
-        $("#sourceMenu").toggle();
+let currentSource = "netease";
+let audio = $("#audio")[0];
+let playlist = [];
+let currentIndex = 0;
+
+$(function(){
+  initSource();
+  $("#searchBtn").click(search);
+  $("#searchInput").keypress(e=>e.which===13&&search());
+  $("#play").click(toggle);
+  $("#prev").click(prev);
+  $("#next").click(next);
+  $("#loadOnlineBtn").click(radar);
+
+  $("#sourceSelectButton").click(()=>$("#sourceMenu").toggle());
+  $(document).click(e=>{
+    if(!$(e.target).closest(".source-select-btn").length) $("#sourceMenu").hide();
+  });
+});
+
+function initSource(){
+  sources.forEach(s=>{
+    $(`<div class="source-menu-item" data-source="${s.source}">${s.name}</div>`)
+      .appendTo("#sourceMenu")
+      .click(function(){
+        currentSource = $(this).data("source");
+        $("#sourceText").text(s.name);
+        $("#sourceMenu").hide();
+        show("已切换："+s.name);
       });
-      $(document).click((e) => {
-        if (!$(e.target).closest(".source-select-wrapper").length) {
-          $("#sourceMenu").hide();
-        }
-      });
-    });
+  });
+}
 
-    // 初始化音源下拉
-    function initSourceMenu() {
-      sources.forEach((s) => {
-        $(`<div class="source-menu-item" data-key="${s.key}">${s.name}</div>`)
-          .appendTo("#sourceMenu")
-          .click(function () {
-            currentSource = $(this).data("key");
-            $("#sourceSelectLabel").text(s.name);
-            $("#sourceMenu").hide();
-            showMsg(`已切换至：${s.name}`);
-          });
-      });
-    }
-
-    // 搜索（正确洛雪API路径）
-    function doSearch() {
-      const keyword = $("#searchInput").val().trim();
-      if (!keyword) return showMsg("请输入关键词");
-      showMsg("搜索中...");
-
-      const url = `${API_BASE}/search?keyword=${encodeURIComponent(keyword)}&source=${currentSource}`;
-      $.getJSON(url)
-        .done((res) => {
-          playlist = res.data || [];
-          renderResults();
-          if (playlist.length === 0) showMsg("暂无结果");
-        })
-        .fail((err) => {
-          console.error("搜索失败", err);
-          showMsg("请求失败：跨域或API失效");
-        });
-    }
-
-    // 渲染结果
-    function renderResults() {
-      const $list = $("#searchResultsList").empty();
-      playlist.forEach((song, i) => {
-        const item = $(`
-          <div class="search-result-item">
-            <div>
-              <div class="item-name">${song.name}</div>
-              <div class="item-artist">${song.artist} · ${song.album}</div>
-            </div>
-            <button class="item-play-btn" data-index="${i}">
-              <i class="fas fa-play"></i>
-            </button>
+function search(){
+  const w = $("#searchInput").val().trim();
+  if(!w) return show("请输入关键词");
+  show("搜索中...");
+  $.getJSON(API,{server:currentSource,type:"search",s:w}).done(res=>{
+    playlist = res || [];
+    $("#searchResultsList").empty();
+    playlist.forEach((song,i)=>{
+      const item = $(`
+        <div class="search-result-item">
+          <div>
+            <div class="item-name">${song.name}</div>
+            <div class="item-artist">${song.artist} | ${song.album}</div>
           </div>
-        `);
-        $list.append(item);
-      });
+          <button class="item-play-btn" data-i="${i}"><i class="fas fa-play"></i></button>
+        </div>
+      `);
+      $("#searchResultsList").append(item);
+    });
+    $(".item-play-btn").click(function(){
+      currentIndex = $(this).data("i");
+      play();
+    });
+  }).fail(()=>show("请求失败"));
+}
 
-      // 点击播放
-      $(".item-play-btn").click(function () {
-        currentIndex = $(this).data("index");
-        playCurrent();
-      });
-    }
+function play(){
+  const song = playlist[currentIndex];
+  if(!song) return;
+  $("#title").text(song.name);
+  $("#artist").text(song.artist);
+  show("正在播放："+song.name);
+  $.getJSON(API,{server:currentSource,type:"url",id:song.id}).done(res=>{
+    audio.src = res.url;
+    audio.play();
+    $("#play i").removeClass("fa-play").addClass("fa-pause");
+  });
+}
 
-    // 播放当前歌曲（正确获取播放地址）
-    function playCurrent() {
-      const song = playlist[currentIndex];
-      if (!song) return;
-
-      $("#currentSongTitle").text(song.name);
-      $("#currentSongArtist").text(song.artist);
-      showMsg("正在播放：" + song.name);
-
-      // 正确播放URL接口
-      const playUrl = `${API_BASE}/song/url?id=${song.id}&source=${currentSource}`;
-      $.getJSON(playUrl)
-        .done((res) => {
-          if (res.url) {
-            audio.src = res.url;
-            audio.play();
-            $("#playPauseBtn i").removeClass("fa-play").addClass("fa-pause");
-          } else {
-            showMsg("暂无播放链接");
-          }
-        })
-        .fail(() => showMsg("播放链接获取失败"));
-    }
-
-    function togglePlay() {
-      if (!audio.src) return showMsg("请先选歌");
-      audio.paused ? audio.play() : audio.pause();
-      $("#playPauseBtn i").toggleClass("fa-play fa-pause");
-    }
-    function playPrev() {
-      currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-      playCurrent();
-    }
-    function playNext() {
-      currentIndex = (currentIndex + 1) % playlist.length;
-      playCurrent();
-    }
-    function exploreRadar() {
-      const hot = ["热门", "经典", "治愈", "伤感", "流行"];
-      $("#searchInput").val(hot[Math.floor(Math.random() * hot.length)]);
-      setTimeout(doSearch, 300);
-    }
-    function showMsg(text) {
-      $("#notification").text(text).fadeIn().delay(2000).fadeOut();
-    }
-  </script>
+function toggle(){ audio.paused ? audio.play() : audio.pause(); $("#play i").toggleClass("fa-play fa-pause"); }
+function prev(){ currentIndex = (currentIndex-1+playlist.length)%playlist.length; play(); }
+function next(){ currentIndex = (currentIndex+1)%playlist.length; play(); }
+function radar(){ $("#searchInput").val(["热门","治愈","经典","伤感","流行"][Math.floor(Math.random()*5)]); setTimeout(search,400); }
+function show(t){ $("#notification").text(t).fadeIn().delay(2000).fadeOut(); }
+</script>
 </body>
 </html>
