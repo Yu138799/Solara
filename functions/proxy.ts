@@ -92,9 +92,7 @@ async function proxyApiRequest(url: URL, request: Request): Promise<Response> {
     apiUrl.searchParams.set(key, value);
   });
 
-  if (!apiUrl.searchParams.has("types")) {
-    return new Response("Missing types", { status: 400 });
-  }
+  // 已移除强制 types 参数校验
 
   const upstream = await fetch(apiUrl.toString(), {
     headers: {
